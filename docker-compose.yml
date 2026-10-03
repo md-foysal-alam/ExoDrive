@@ -1,0 +1,95 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgres
+    restart: unless-stopped
+
+    # Environment configuration
+    # Fill in these values before deploying.
+    environment:
+      # Superuser credentials
+      POSTGRES_USER: ""
+      POSTGRES_PASSWORD: ""
+      POSTGRES_DB: ""
+
+    # TLS / SSL configuration (uncomment and fill in to enable)
+    # POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    # SSL mode for connections:
+    #   disable | allow | prefer | require | verify-ca | verify-full
+    # POSTGRES_SSL: "verify-full"
+
+    # Persistent storage
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Mount TLS certificates (uncomment and adjust paths to your certs)
+    # - ./certs/server.crt:/var/lib/postgresql/server.crt:ro
+    # - ./certs/server.key:/var/lib/postgresql/server.key:ro
+    # - ./certs/ca.crt:/var/lib/postgresql/ca.crt:ro
+
+    # Networking / exposure
+    ports:
+      - "5432:5432"
+
+    # Health check (uses the password from env; adjust once you set POSTGRES_PASSWORD)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+
+    # Environment configuration
+    # Fill in these values before deploying.
+    environment:
+      # Redis password (empty until set). If left empty, Redis allows
+      # unauthenticated access unless requirepass is configured.
+      REDIS_PASSWORD: ""
+
+    # Run redis-server with a password and TLS (uncomment once you set values)
+    # command: >
+    #   sh -c 'redis-server
+    #     --requirepass "${REDIS_PASSWORD}"
+    #     --tls-port 6379
+    #     --port 0
+    #     --tls-cert-file /etc/redis/certs/server.crt
+    #     --tls-key-file /etc/redis/certs/server.key
+    #     --tls-ca-cert-file /etc/redis/certs/ca.crt
+    #     --tls-auth-clients yes'
+
+    # Persistent storage
+    volumes:
+      - redis_data:/data
+    # Mount TLS certificates (uncomment and adjust paths to your certs)
+    # - ./certs/server.crt:/etc/redis/certs/server.crt:ro
+    # - ./certs/server.key:/etc/redis/certs/server.key:ro
+    # - ./certs/ca.crt:/etc/redis/certs/ca.crt:ro
+
+    # Networking / exposure
+    ports:
+      - "6379:6379"
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  backend:
+    driver: bridge
