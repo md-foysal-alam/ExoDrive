@@ -1,1 +1,164 @@
+<<<<<<< HEAD
 .delta
+=======
+# ==========================================================
+# ExoDrive — .gitignore
+# Backend: Java / Maven (Spring Boot)
+# Frontend: Node.js / TypeScript / Vite / Tailwind
+# ==========================================================
+
+# ----------------------------------------------------------
+# Secrets / Environment
+# ----------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.secret
+credentials*
+
+# ----------------------------------------------------------
+# TLS / Certificate material (never commit private keys)
+# ----------------------------------------------------------
+*.pem
+*.key
+*.crt
+*.cer
+*.csr
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+secrets/
+certs/
+
+# ----------------------------------------------------------
+# Node.js / Frontend
+# ----------------------------------------------------------
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn-integrity
+yarn-error.log
+npm-debug.log*
+pnpm-debug.log*
+pnpm-lock.yaml.debug
+
+# Build output
+dist/
+dist-ssr/
+build/
+out/
+*.tsbuildinfo
+.eslintcache
+.cache/
+.vite/
+.parcel-cache/
+webpack/
+.turbo/
+
+# Coverage & test artifacts
+coverage/
+.nyc_output/
+.playwright/
+reports/
+test-results/
+
+# ----------------------------------------------------------
+# Java / Maven / Gradle
+# ----------------------------------------------------------
+# Build output
+target/
+out/
+.classpath
+.project
+.settings/
+.factorypath
+bin/
+
+# Maven
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# ----------------------------------------------------------
+# IDE / Editors
+# ----------------------------------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+*~
+*.kdev4
+*.sublime-workspace
+*.sublime-project
+
+# ----------------------------------------------------------
+# OS / System
+# ----------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+
+# ----------------------------------------------------------
+# Logs
+# ----------------------------------------------------------
+logs/
+*.log
+*.out
+nohup.out
+hs_err_pid*
+replay_pid*
+
+# ----------------------------------------------------------
+# Database / Local data
+# ----------------------------------------------------------
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.duckdb
+pgdata/
+postgres-data/
+redis-data/
+dump.rdb
+*.rdb
+
+# ----------------------------------------------------------
+# Docker (keep Dockerfiles & compose; ignore runtime assets)
+# ----------------------------------------------------------
+docker-compose.override.yml
+*.pid
+*.pid.lock
+
+# ----------------------------------------------------------
+# Misc / language runtimes
+# ----------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.sass-cache/
+.lock-wscript
+>>>>>>> main
