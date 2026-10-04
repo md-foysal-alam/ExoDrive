@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+.delta
+=======
 # ==========================================================
 # ExoDrive — .gitignore
 # Backend: Java / Maven (Spring Boot)
@@ -158,3 +161,4 @@ venv/
 env/
 .sass-cache/
 .lock-wscript
+>>>>>>> main
